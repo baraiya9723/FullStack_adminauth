@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./config/database');
 const authRoutes = require('./routes/authRoutes');
-
+const cookieParser = require('cookie-parser');
 // Initialize dotenv for environment variables
 require('dotenv').config();
 
@@ -11,7 +11,13 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cookieParser());
+app.use(
+    cors({
+        origin: "http://localhost:3000", // Replace with your frontend URL
+        credentials: true, // Allow cookies
+    })
+);
 app.use(bodyParser.json());
 
 // API Routes

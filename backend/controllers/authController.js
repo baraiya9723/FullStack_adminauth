@@ -83,17 +83,53 @@ exports.adminLogin = async (req, res) => {
         }
         
         if (user.role !== 'admin') {
-            return res.status(403).json({ message: 'You are not allowed to login from here' });
+            return res.status(403).json({ message: 'You are not admin , not allowed to login from here'  });
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
+        const token = jwt.sign({email, password}, process.env.JWT_SECRET);
+  
+        // Set token in cookies
+        res.cookie("token", token, token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production', // Use true in production (HTTPS)
+          sameSite: 'strict'
+      });
 
         res.status(200).json({ message: 'Admin logged in successfully!' });
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+
+exports.validateToken = (req, res) => {
+    const token = req?.cookies?.token;
+    if (!token) {
+      return res.status(401).json({ message: 'Not authenticated' });
+    }
+  
+    try {
+      jwt.verify(token, process.env.JWT_SECRET);
+      res.json({ message: 'Token is valid' });
+    } catch (error) {
+      res.status(401).json({ message: 'Invalid token' });
+    }
+  };
+
+
+
+  exports.logoutUser = (req, res) => {
+    res.cookie("token", "", {
+      httpOnly: true // Expire the cookie immediately
+    });
+  
+    res.status(200).json({ message: "Logged out successfully" });
+  };
+  
+  

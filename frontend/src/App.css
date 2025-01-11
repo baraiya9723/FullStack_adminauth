@@ -1,0 +1,95 @@
+/* Ensure the app takes full height */
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main container (everything below navbar) */
+.app-container {
+  flex: 1; /* Takes up all available space between navbar and footer */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dashboard-specific styling */
+.dashboard {
+  flex: 1; /* Grow to take the remaining space */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  padding: 20px;
+  background-color: #f8f9fa; /* Light background for better aesthetics */
+  text-align: center;
+  min-height: calc(100vh - 56px - 40px); /* 100vh minus navbar and footer heights */
+}
+
+/* Footer styling */
+
+
+/* Footer styling */
+.footer {
+  height: 40px; /* Consistent height */
+  background-color: #343a40; /* Dark background */
+  color: white; /* White text for contrast */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  position: sticky; /* Sticks to the bottom of the viewport if content is smaller */
+  bottom: 0; /* Position at the bottom */
+  width: 100%; /* Full width */
+  z-index: 10; /* Ensure it stays above any other content */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for better appearance */
+}
+
+/* Footer text */
+.footer-content p {
+  margin: 0; /* Remove default margin */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  text-align: center;
+}
+
+/* Admin Page Styling */
+.admin-page {
+  background-color: #f8f9fa; /* Light gray background */
+  min-height: calc(100vh - 56px - 40px); /* Full height minus navbar & footer */
+  padding: 20px;
+}
+
+/* Header Section */
+.admin-header {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #343a40; /* Dark text */
+}
+
+/* Stat Cards */
+.stat-card {
+  border: none;
+  background-color: #007bff; /* Primary color */
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Table Styling */
+.table {
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
